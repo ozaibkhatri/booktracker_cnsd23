@@ -13,8 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.RequestBuilder;
-import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -51,7 +49,7 @@ class BooktrackerCnsd23ApplicationTests {
 	// the UI an hit Submit, my book will save to the list.
 	@Test
 	public void canCreateANewBook() throws Exception {
-		Book book = new Book(1, "HTML for Babies", "Some Kid", 1999, 26);
+		Book book = new Book(1, "The core", "Jhon same", 1980, 260);
 		mvc.perform(post("/books")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(jsonBook.write(book).getJson()))
@@ -61,8 +59,8 @@ class BooktrackerCnsd23ApplicationTests {
 	// View all book
 	@Test
 	public void canGetAllBooks() throws Exception {
-		Book book1 = new Book(1, "HTML for Babies", "Some Kid", 1999, 26);
-		Book book2 = new Book(2, "C# Expert", "Rox", 2006, 260);
+		Book book1 = new Book(1, "The core", "Jhon same", 1980, 260);
+		Book book2 = new Book(2, "Dot net", "Orcle", 2010, 110);
 		Collection<Book> books = new ArrayList<Book>();
 		books.add(book1);
 		books.add(book2);
@@ -76,8 +74,8 @@ class BooktrackerCnsd23ApplicationTests {
 
 	@Test
 	public void canDeleteBook() throws Exception {
-		Book book1 = new Book(1, "HTML for Babies", "Some Kid", 1999, 26);
-		Book book2 = new Book(2, "C# Expert", "Rox", 2006, 260);
+		Book book1 = new Book(1, "The core", "Jhon same", 1980, 260);
+		Book book2 = new Book(2, "Dot net", "Orcle", 2010, 110);
 		Collection<Book> books = new ArrayList<Book>();
 		books.add(book1);
 		books.add(book2);
@@ -88,7 +86,6 @@ class BooktrackerCnsd23ApplicationTests {
 	
 		mvc.perform(delete("/books/{id}", book1.getId())
 				.contentType(MediaType.APPLICATION_JSON));
-				// .andExpect(status().isOk());
 	
 		assertThat(books).doesNotContain(book1);
 		assertThat(books).containsOnly(book2);
@@ -97,13 +94,13 @@ class BooktrackerCnsd23ApplicationTests {
 	@Test
 public void canUpdateBook() throws Exception {
     // Arrange
-    Book book1 = new Book(1, "HTML for Babies", "Some Kid", 1999, 26);
-    Book book2 = new Book(2, "C# Expert", "Rox", 2006, 260);
+        Book book1 = new Book(1, "The core", "Jhon same", 1980, 260);
+		Book book2 = new Book(2, "Dot net", "Orcle", 2010, 110);
     Collection<Book> books = new ArrayList<Book>();
     books.add(book1);
     books.add(book2);
 
-    Book updatedBook = new Book(1, "HTML5 for Babies", "Some Kid", 2020, 36);
+    Book updatedBook = new Book(1, "C language", "Dennis Ritchi", 2020, 36);
     books.remove(book1);
     books.add(updatedBook);
 
@@ -114,7 +111,6 @@ public void canUpdateBook() throws Exception {
             .content(asJsonString(updatedBook))
             .contentType(MediaType.APPLICATION_JSON)
             .accept(MediaType.APPLICATION_JSON));
-            // .andExpect(status().isOk());
 
     // Assert
     assertThat(books).containsOnly(updatedBook, book2);
