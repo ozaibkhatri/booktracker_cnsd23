@@ -1,8 +1,6 @@
 package afn.xloop.booktracker_cnsd23;
 
 import java.util.Collection;
-
-import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
